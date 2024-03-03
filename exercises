@@ -1,0 +1,134 @@
+Write a Python program to list only directories, files and all directories, files in a specified path.
+
+import os
+path = 'g:\\testpath\\'
+print("Only directories:")
+print([ name for name in os.listdir(path) if os.path.isdir(os.path.join(path, name)) ])
+print("\nOnly files:")
+print([ name for name in os.listdir(path) if not os.path.isdir(os.path.join(path, name)) ])
+print("\nAll directories and files :")
+print([ name for name in os.listdir(path)])
+
+-------------------------------------------------------------------------------------------------------
+
+Check for access to a specified path (existence, readability, writability, and executability):
+
+def check_access(path):
+    return {
+        'exists': os.path.exists(path),
+        'readable': os.access(path, os.R_OK),
+        'writable': os.access(path, os.W_OK),
+        'executable': os.access(path, os.X_OK)
+    }
+
+-----------------------------------------------------------------------------------------------------
+
+Test whether a given path exists or not. If the path exists, find the filename and directory portion of the given path:
+
+def path_details(path):
+    if os.path.exists(path):
+        directory, filename = os.path.split(path)
+        return {'exists': True, 'directory': directory, 'filename': filename}
+    else:
+        return {'exists': False}
+
+------------------------------------------------------------------------------------------------------
+
+Count the number of lines in a text file:
+
+def count_lines(filename):
+    with open(filename, 'r') as file:
+        return sum(1 for line in file)
+
+-------------------------------------------------------------------------------------
+Write a list to a file:
+
+def write_list_to_file(list_data, filename):
+    with open(filename, 'w') as file:
+        for item in list_data:
+            file.write(f"{item}\n")
+
+
+--------------------------------------------------------------------------------------------------
+
+Generate 26 text files named A.txt, B.txt, and so on up to Z.txt:
+
+def generate_alphabet_files():
+    for letter in range(65, 91):  # ASCII values for A-Z
+        with open(f"{chr(letter)}.txt", 'w') as file:
+            file.write(f"This is the file {chr(letter)}.txt\n")
+
+
+---------------------------------------------------------------------------------------------------
+
+Copy the contents of a file to another file:
+
+def copy_file(source_file, destination_file):
+    with open(source_file, 'r') as src:
+        with open(destination_file, 'w') as dest:
+            dest.write(src.read())
+
+
+------------------------------------------------------------------------------------------
+
+Delete a file by specified path. Before deleting, check for access and whether a given path exists or not:
+
+def delete_file(path):
+    if os.path.exists(path) and os.access(path, os.W_OK):
+        os.remove(path)
+        return True
+    else:
+        return False
+
+----------------------------------------------------------------------------------------
+
+Program to multiply all the numbers in a list:
+
+from functools import reduce
+
+def multiply_list(lst):
+    return reduce(lambda x, y: x * y, lst)
+
+--------------------------------------------------------------------------------
+Program that accepts a string and calculates the number of upper case and lower case letters:
+
+def count_cases(s):
+    return {
+        'upper_case': sum(1 for char in s if char.isupper()),
+        'lower_case': sum(1 for char in s if char.islower())
+    }
+
+
+-----------------------------------------------------------------------------------------
+Program that checks whether a passed string is palindrome or not:
+
+def is_palindrome(s):
+    clean_s = s.lower().replace(" ", "")
+    return clean_s == clean_s[::-1]
+
+------------------------------------------------------------------------------------
+Program that invokes the square root function after specific milliseconds:
+
+import time
+import math
+
+def delayed_sqrt(number, delay_ms):
+    time.sleep(delay_ms / 1000)  # Convert milliseconds to seconds
+    return math.sqrt(number)
+
+# Sample usage:
+number = 25100
+delay_ms = 2123
+result = delayed_sqrt(number, delay_ms)
+print(f"Square root of {number} after {delay_ms} milliseconds is {result}")
+
+
+------------------------------------------------------------------------------------------
+
+Program that returns True if all elements of the tuple are true:
+
+def all_true(tuple_val):
+    return all(tuple_val)
+
+---------------------------------------------------------------------------------------------
+
